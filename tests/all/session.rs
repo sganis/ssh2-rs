@@ -58,6 +58,79 @@ fn smoke_handshake() {
     sess.host_key_hash(HashType::Md5).unwrap();
 }
 
+
+
+#[test]
+fn public_key_rsa() {
+    let user = env::var("USER").unwrap();
+    let keypath = env::var("KEYPATH").unwrap();
+    let socket = ::socket();
+    let mut sess = Session::new().unwrap();
+    sess.set_tcp_stream(socket);
+    sess.handshake().unwrap();
+    let pkpath = format!("{keypath}/key_rsa");
+    let private_key = std::path::Path::new(&pkpath);
+    assert!(private_key.exists());
+    assert!(sess.userauth_pubkey_file(&user, None, private_key, None).is_ok());
+    assert!(sess.authenticated());
+}
+#[test]
+fn public_key_rsa_openssh() {
+    let user = env::var("USER").unwrap();
+    let keypath = env::var("KEYPATH").unwrap();
+    let socket = ::socket();
+    let mut sess = Session::new().unwrap();
+    sess.set_tcp_stream(socket);
+    sess.handshake().unwrap();
+    let pkpath = format!("{keypath}/key_rsa_openssh");
+    let private_key = std::path::Path::new(&pkpath);
+    assert!(private_key.exists());
+    assert!(sess.userauth_pubkey_file(&user, None, private_key, None).is_ok());
+    assert!(sess.authenticated());
+}
+#[test]
+fn public_key_rsa_signed() {
+    let user = env::var("USER").unwrap();
+    let keypath = env::var("KEYPATH").unwrap();
+    let socket = ::socket();
+    let mut sess = Session::new().unwrap();
+    sess.set_tcp_stream(socket);
+    sess.handshake().unwrap();
+    let pkpath = format!("{keypath}/key_rsa_signed");
+    let private_key = std::path::Path::new(&pkpath);
+    assert!(private_key.exists());
+    assert!(sess.userauth_pubkey_file(&user, None, private_key, None).is_ok());
+    assert!(sess.authenticated());
+}
+#[test]
+fn public_key_ecdsa() {
+    let user = env::var("USER").unwrap();
+    let keypath = env::var("KEYPATH").unwrap();
+    let socket = ::socket();
+    let mut sess = Session::new().unwrap();
+    sess.set_tcp_stream(socket);
+    sess.handshake().unwrap();
+    let pkpath = format!("{keypath}/key_ecdsa");
+    let private_key = std::path::Path::new(&pkpath);
+    assert!(private_key.exists());
+    assert!(sess.userauth_pubkey_file(&user, None, private_key, None).is_ok());
+    assert!(sess.authenticated());
+}
+#[test]
+fn public_key_ed25519() {
+    let user = env::var("USER").unwrap();
+    let keypath = env::var("KEYPATH").unwrap();
+    let socket = ::socket();
+    let mut sess = Session::new().unwrap();
+    sess.set_tcp_stream(socket);
+    sess.handshake().unwrap();
+    let pkpath = format!("{keypath}/key_ed25519");
+    let private_key = std::path::Path::new(&pkpath);
+    assert!(private_key.exists());
+    assert!(sess.userauth_pubkey_file(&user, None, private_key, None).is_ok());
+    assert!(sess.authenticated());
+}
+
 #[test]
 fn keyboard_interactive() {
     let user = env::var("USER").unwrap();

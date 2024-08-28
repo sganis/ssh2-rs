@@ -12,11 +12,14 @@ mod knownhosts;
 mod session;
 mod sftp;
 
+
 pub fn test_addr() -> String {
+    let host = env::var("RUST_SSH2_FIXTURE_HOST")
+        .unwrap_or("127.0.0.1".to_string());
     let port = env::var("RUST_SSH2_FIXTURE_PORT")
         .map(|s| s.parse().unwrap())
         .unwrap_or(22);
-    let addr = format!("127.0.0.1:{}", port);
+    let addr = format!("{}:{}", host, port);
     addr
 }
 
