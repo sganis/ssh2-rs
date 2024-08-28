@@ -51,22 +51,22 @@ fn main() {
     fs::create_dir_all(&build).unwrap();
     fs::create_dir_all(&include).unwrap();
 
-    fs::copy("libssh2/include/libssh2.h", include.join("libssh2.h")).unwrap();
+    fs::copy(
+        "libssh2/include/libssh2.h", 
+        include.join("libssh2.h")).unwrap();
     fs::copy(
         "libssh2/include/libssh2_publickey.h",
-        include.join("libssh2_publickey.h"),
-    )
-    .unwrap();
+        include.join("libssh2_publickey.h")).unwrap();
     fs::copy(
         "libssh2/include/libssh2_sftp.h",
-        include.join("libssh2_sftp.h"),
-    )
-    .unwrap();
+        include.join("libssh2_sftp.h")).unwrap();
 
     cfg.file("libssh2/src/agent.c")
         .file("libssh2/src/bcrypt_pbkdf.c")
         .file("libssh2/src/blowfish.c")
+        .file("libssh2/src/chacha.c")
         .file("libssh2/src/channel.c")
+        .file("libssh2/src/cipher-chachapoly.c")
         .file("libssh2/src/comp.c")
         .file("libssh2/src/crypt.c")
         .file("libssh2/src/crypto.c")
@@ -75,10 +75,15 @@ fn main() {
         .file("libssh2/src/keepalive.c")
         .file("libssh2/src/kex.c")
         .file("libssh2/src/knownhost.c")
+        .file("libssh2/src/libgcrypt.c")
         .file("libssh2/src/mac.c")
+        .file("libssh2/src/mbedtls.c")
         .file("libssh2/src/misc.c")
+        .file("libssh2/src/openssl.c")
+        .file("libssh2/src/os400qc3.c")
         .file("libssh2/src/packet.c")
         .file("libssh2/src/pem.c")
+        .file("libssh2/src/poly1305.c")
         .file("libssh2/src/publickey.c")
         .file("libssh2/src/scp.c")
         .file("libssh2/src/session.c")
@@ -86,6 +91,7 @@ fn main() {
         .file("libssh2/src/transport.c")
         .file("libssh2/src/userauth.c")
         .file("libssh2/src/userauth_kbd_packet.c")
+        .file("libssh2/src/version.c")
         .include(&include)
         .include("libssh2/src");
 
@@ -94,7 +100,8 @@ fn main() {
     if target.contains("windows") {
         cfg.include("libssh2/win32");
         cfg.define("LIBSSH2_WIN32", None);
-        cfg.file("libssh2/src/agent_win.c");
+        cfg.file("libssh2/src/agent_win.c")
+           .file("libssh2/src/wincng.c");
 
         if env::var_os("CARGO_FEATURE_OPENSSL_ON_WIN32").is_some() {
             cfg.define("LIBSSH2_OPENSSL", None);
