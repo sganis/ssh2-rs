@@ -62,8 +62,8 @@ fn smoke_handshake() {
 
 #[test]
 fn public_key_rsa() {
-    let user = env::var("RUST_SSH2_FIXTURE_USER").unwrap();
-    let keypath = env::var("RUST_SSH2_FIXTURE_KEYPATH").unwrap();
+    let user = env::var("TEST_USER").unwrap();
+    let keypath = env::var("TEST_KEYS").unwrap();
     let socket = ::socket();
     let mut sess = Session::new().unwrap();
     sess.set_tcp_stream(socket);
@@ -77,7 +77,7 @@ fn public_key_rsa() {
 #[test]
 fn public_key_rsa_openssh() {
     let user = env::var("USER").unwrap();
-    let keypath = env::var("RUST_SSH2_FIXTURE_KEYPATH").unwrap();
+    let keypath = env::var("TEST_KEYS").unwrap();
     let socket = ::socket();
     let mut sess = Session::new().unwrap();
     sess.set_tcp_stream(socket);
@@ -96,8 +96,8 @@ fn public_key_rsa_openssh() {
 }
 #[test]
 fn public_key_rsa_signed() {
-    let user = env::var("RUST_SSH2_FIXTURE_USER").unwrap();
-    let keypath = env::var("RUST_SSH2_FIXTURE_KEYPATH").unwrap();
+    let user = env::var("TEST_USER").unwrap();
+    let keypath = env::var("TEST_KEYS").unwrap();
     let socket = ::socket();
     let mut sess = Session::new().unwrap();
     sess.set_tcp_stream(socket);
@@ -113,8 +113,8 @@ fn public_key_rsa_signed() {
 }
 #[test]
 fn public_key_ecdsa() {
-    let user = env::var("RUST_SSH2_FIXTURE_USER").unwrap();
-    let keypath = env::var("RUST_SSH2_FIXTURE_KEYPATH").unwrap();
+    let user = env::var("TEST_USER").unwrap();
+    let keypath = env::var("TEST_KEYS").unwrap();
     let socket = ::socket();
     let mut sess = Session::new().unwrap();
     sess.set_tcp_stream(socket);
@@ -130,8 +130,8 @@ fn public_key_ecdsa() {
 }
 #[test]
 fn public_key_ed25519() {
-    let user = env::var("RUST_SSH2_FIXTURE_USER").unwrap();
-    let keypath = env::var("RUST_SSH2_FIXTURE_KEYPATH").unwrap();
+    let user = env::var("TEST_USER").unwrap();
+    let keypath = env::var("TEST_KEYS").unwrap();
     let socket = ::socket();
     let mut sess = Session::new().unwrap();
     sess.set_tcp_stream(socket);
