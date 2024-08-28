@@ -14,9 +14,9 @@ mod sftp;
 
 
 pub fn test_addr() -> String {
-    let host = env::var("RUST_SSH2_FIXTURE_HOST")
+    let host = env::var("TEST_HOST")
         .unwrap_or("127.0.0.1".to_string());
-    let port = env::var("RUST_SSH2_FIXTURE_PORT")
+    let port = env::var("TEST_PORT")
         .map(|s| s.parse().unwrap())
         .unwrap_or(22);
     let addr = format!("{}:{}", host, port);
