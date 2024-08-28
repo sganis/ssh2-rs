@@ -12,9 +12,9 @@ use std::process::Command;
 fn main() {
     let zlib_ng_compat = env::var("CARGO_FEATURE_ZLIB_NG_COMPAT").is_ok();
 
-    if !zlib_ng_compat && try_vcpkg() {
-        return;
-    }
+    // if !zlib_ng_compat && try_vcpkg() {
+    //     return;
+    // }
 
     // The system copy of libssh2 is not used by default because it
     // can lead to having two copies of libssl loaded at once.
@@ -64,9 +64,9 @@ fn main() {
     cfg.file("libssh2/src/agent.c")
         .file("libssh2/src/bcrypt_pbkdf.c")
         .file("libssh2/src/blowfish.c")
-        .file("libssh2/src/chacha.c")
+        //.file("libssh2/src/chacha.c")
         .file("libssh2/src/channel.c")
-        .file("libssh2/src/cipher-chachapoly.c")
+        //.file("libssh2/src/cipher-chachapoly.c")
         .file("libssh2/src/comp.c")
         .file("libssh2/src/crypt.c")
         .file("libssh2/src/crypto.c")
@@ -83,7 +83,7 @@ fn main() {
         .file("libssh2/src/os400qc3.c")
         .file("libssh2/src/packet.c")
         .file("libssh2/src/pem.c")
-        .file("libssh2/src/poly1305.c")
+        //.file("libssh2/src/poly1305.c")
         .file("libssh2/src/publickey.c")
         .file("libssh2/src/scp.c")
         .file("libssh2/src/session.c")
